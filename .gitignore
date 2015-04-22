@@ -2,3 +2,6 @@
 .project
 .settings
 target/
+test-files/
+
+.DS_Store
