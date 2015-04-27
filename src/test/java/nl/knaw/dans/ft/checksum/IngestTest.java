@@ -19,6 +19,9 @@ public class IngestTest extends AbstractChecksumTest
     
     private void ingest() throws Exception {
         purgeExistingDOBs();
+        Thread.sleep(10000); // give fedora time to recover
+        purgeExistingDOBs();
+        Thread.sleep(10000); // give fedora time to recover
         System.out.println(ingestDOBs());
     }
     

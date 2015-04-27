@@ -22,7 +22,7 @@ public class ChecksumLocalTest extends AbstractChecksumTest
         ingestDOBs();
         
         long time = 0L;
-        File[] testFiles = new File("test-files").listFiles();
+        File[] testFiles = getTestFiles();
         for (File file : testFiles) {
             String pid = CHECKSUM_PREFIX + ":" + file.getName();
             

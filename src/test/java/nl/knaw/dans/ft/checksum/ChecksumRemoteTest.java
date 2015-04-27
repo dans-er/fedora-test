@@ -15,8 +15,8 @@ public class ChecksumRemoteTest extends AbstractChecksumTest
     @Test
     public void checksumValidTest() throws Exception {
         calculateTestFilesLength();
-        purgeExistingDOBs();
-        ingestDOBs();
+        //purgeExistingDOBs();
+        //ingestDOBs();
         
         for (int i = 1; i <= 10; i++) {
             System.out.println(verifyChecksums());
@@ -25,7 +25,7 @@ public class ChecksumRemoteTest extends AbstractChecksumTest
     
     private long verifyChecksums() throws Exception {
         long time = 0L;
-        File[] testFiles = new File("test-files").listFiles();
+        File[] testFiles = getTestFiles();
         for (File file : testFiles) {
             String pid = CHECKSUM_PREFIX + ":" + file.getName();
             //
