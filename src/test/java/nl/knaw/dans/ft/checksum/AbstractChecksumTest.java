@@ -30,7 +30,7 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
             //"test-files2";
             //"test-files3";
             //"test-files4";
-            "test-files5";
+            "test-files6";
     
     protected File[] getTestFiles() {
         return new File(TEST_FILES_DIR).listFiles();
@@ -88,7 +88,7 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
 
             //
             count += 1;
-            if (count % 50 == 0) Thread.sleep(50000);
+            if (count % 50 == 0) Thread.sleep(5000);
             long start = System.currentTimeMillis();
             IngestResponse ingResponse = new Ingest(pid)
                     .label("obj-" + file.getName())

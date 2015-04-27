@@ -17,8 +17,10 @@ public class UpdateStreamTest extends AbstractChecksumTest
     
     @Test
     public void tenUpdateTest() throws Exception {
-        //purgeExistingDOBs();
-        //ingestDOBs();
+        purgeExistingDOBs();
+        Thread.sleep(5000);
+        purgeExistingDOBs();
+        ingestDOBs();
         calculateTestFilesLength();
         Thread.sleep(5000);
         for (int i = 1; i <= 10; i++) {
