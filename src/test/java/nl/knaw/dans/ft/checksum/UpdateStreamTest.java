@@ -17,10 +17,10 @@ public class UpdateStreamTest extends AbstractChecksumTest
     
     @Test
     public void tenUpdateTest() throws Exception {
-        purgeExistingDOBs();
-        ingestDOBs();
+        //purgeExistingDOBs();
+        //ingestDOBs();
         calculateTestFilesLength();
-        Thread.sleep(20000);
+        Thread.sleep(5000);
         for (int i = 1; i <= 10; i++) {
             System.out.println(updateTest());
         }
@@ -31,7 +31,7 @@ public class UpdateStreamTest extends AbstractChecksumTest
         File[] testFiles = getTestFiles();
         for (File file : testFiles) {
             String pid = CHECKSUM_PREFIX + ":" + file.getName();
-            String versionId1 = getVersion(pid);
+            //String versionId1 = getVersion(pid);
             //
             long start = System.currentTimeMillis();
             //new ModifyDatastream(pid, "test").versionable(false).execute();
@@ -41,8 +41,8 @@ public class UpdateStreamTest extends AbstractChecksumTest
             time += duration;
             //
             assertTrue(r2.getStatus() == 200);
-            String versionId2 = getVersion(pid);
-            assertNotEquals(versionId1, versionId2);
+            //String versionId2 = getVersion(pid);
+            //assertNotEquals(versionId1, versionId2);
             ModifyDatastreamResponse r3 = new ModifyDatastream(pid, "test").checksumType("DISABLED").execute();
             assertTrue(r3.getStatus() == 200);
         }

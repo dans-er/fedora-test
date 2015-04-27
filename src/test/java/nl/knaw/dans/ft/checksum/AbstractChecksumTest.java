@@ -28,8 +28,9 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
     public static final String TEST_FILES_DIR = 
             //"test-files";
             //"test-files2";
-            "test-files3";
+            //"test-files3";
             //"test-files4";
+            "test-files5";
     
     protected File[] getTestFiles() {
         return new File(TEST_FILES_DIR).listFiles();
