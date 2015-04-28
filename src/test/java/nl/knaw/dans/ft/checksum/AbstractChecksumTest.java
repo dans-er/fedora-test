@@ -82,21 +82,21 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
         // create objects
         for (File file : testFiles) {
             String pid = CHECKSUM_PREFIX + ":" + file.getName();
-//            FileInputStream fis = new FileInputStream(file);
-//            String checksum = DigestUtils.sha1Hex(fis);
-//            fis.close();
+            FileInputStream fis = new FileInputStream(file);
+            String checksum = DigestUtils.sha1Hex(fis);
+            fis.close();
 
             //
-            count += 1;
-            if (count % 50 == 0) Thread.sleep(5000);
+            //count += 1;
+            //if (count % 50 == 0) Thread.sleep(5000);
             long start = System.currentTimeMillis();
             IngestResponse ingResponse = new Ingest(pid)
                     .label("obj-" + file.getName())
                     .execute();
             AddDatastreamResponse adsResponse = new AddDatastream(pid, "test")
                     .controlGroup("M")
-                    //.checksumType("SHA-1")
-                    //.checksum(checksum) // if not valid: org.fcrepo.server.errors.ValidationException: Checksum Mismatch
+                    .checksumType("SHA-1")
+                    .checksum(checksum) // if not valid: org.fcrepo.server.errors.ValidationException: Checksum Mismatch
                     .mimeType("application/octet-stream")
                     .content(file)
                     .execute();
@@ -107,7 +107,7 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
             assertFalse(adsResponse.isChecksumValid()); // always false
             time += duration;
             // only for updateTest
-            new ModifyDatastream(pid, "test").versionable(false).execute();
+            //new ModifyDatastream(pid, "test").versionable(false).execute();
         }
         return time;
     }

@@ -58,5 +58,27 @@ public class UpdateStreamTest extends AbstractChecksumTest
         assertTrue(response.getDatastreamProfile().getDsVersionable().equalsIgnoreCase("false"));
         return response.getDatastreamProfile().getDsVersionID();
     }
+    
+    @Test
+    public void tenResponseTimeTest() throws Exception {
+        for (int i = 1; i <= 1; i++) {
+            System.out.println(responseTimeTest());
+        }
+    }
+    
+    private long responseTimeTest() throws FedoraClientException {
+        long start = System.currentTimeMillis();
+        File[] testFiles = getTestFiles();
+        for (File file : testFiles) {
+            String pid = CHECKSUM_PREFIX + ":" + file.getName();
+                //new ModifyDatastream(pid, "test").versionable(false).execute();
+                //new GetDatastream(pid, "test").execute();
+                //Thread.sleep(1000);
+            new ModifyDatastream(pid, "test").checksumType("SHA-1").execute();
+
+        }
+        return System.currentTimeMillis() - start;
+    }
+    
 
 }
