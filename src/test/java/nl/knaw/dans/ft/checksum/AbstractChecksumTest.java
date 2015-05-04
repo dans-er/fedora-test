@@ -15,12 +15,10 @@ import org.apache.commons.io.FileUtils;
 import com.yourmediashelf.fedora.client.request.AddDatastream;
 import com.yourmediashelf.fedora.client.request.FindObjects;
 import com.yourmediashelf.fedora.client.request.Ingest;
-import com.yourmediashelf.fedora.client.request.ModifyDatastream;
 import com.yourmediashelf.fedora.client.request.PurgeObject;
 import com.yourmediashelf.fedora.client.response.AddDatastreamResponse;
 import com.yourmediashelf.fedora.client.response.FindObjectsResponse;
 import com.yourmediashelf.fedora.client.response.IngestResponse;
-import com.yourmediashelf.fedora.client.response.ModifyDatastreamResponse;
 
 public abstract class AbstractChecksumTest extends AbstractFedoraTest
 {
@@ -78,17 +76,14 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
     protected long ingestDOBs() throws Exception {
         File[] testFiles = getTestFiles();
         long time = 0L;
-        int count = 0;
         // create objects
         for (File file : testFiles) {
             String pid = CHECKSUM_PREFIX + ":" + file.getName();
+
             FileInputStream fis = new FileInputStream(file);
             String checksum = DigestUtils.sha1Hex(fis);
             fis.close();
-
             //
-            //count += 1;
-            //if (count % 50 == 0) Thread.sleep(5000);
             long start = System.currentTimeMillis();
             IngestResponse ingResponse = new Ingest(pid)
                     .label("obj-" + file.getName())
@@ -96,16 +91,17 @@ public abstract class AbstractChecksumTest extends AbstractFedoraTest
             AddDatastreamResponse adsResponse = new AddDatastream(pid, "test")
                     .controlGroup("M")
                     .checksumType("SHA-1")
-                    .checksum(checksum) // if not valid: org.fcrepo.server.errors.ValidationException: Checksum Mismatch
+                    .checksum(checksum) 
                     .mimeType("application/octet-stream")
                     .content(file)
                     .execute();
             long duration = System.currentTimeMillis() - start;
             //
+            time += duration;
             assertEquals(201, ingResponse.getStatus());
             assertEquals(201, adsResponse.getStatus());
             assertFalse(adsResponse.isChecksumValid()); // always false
-            time += duration;
+            
             // only for updateTest
             //new ModifyDatastream(pid, "test").versionable(false).execute();
         }

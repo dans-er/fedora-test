@@ -36,9 +36,7 @@ public class UpdateStreamTest extends AbstractChecksumTest
             //String versionId1 = getVersion(pid);
             //
             long start = System.currentTimeMillis();
-            //new ModifyDatastream(pid, "test").versionable(false).execute();
             ModifyDatastreamResponse r2 = new ModifyDatastream(pid, "test").checksumType("SHA-1").execute();
-            //new ModifyDatastream(pid, "test").versionable(true).execute();
             long duration = System.currentTimeMillis() - start;
             time += duration;
             //

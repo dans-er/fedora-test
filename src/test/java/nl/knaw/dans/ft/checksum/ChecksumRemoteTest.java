@@ -33,7 +33,6 @@ public class ChecksumRemoteTest extends AbstractChecksumTest
             GetDatastreamResponse response = new GetDatastream(pid, "test")
                     .validateChecksum(true)
                     .execute();
-            
             assertTrue(response.isChecksumValid());           
             long duration = System.currentTimeMillis() - start;
             //
