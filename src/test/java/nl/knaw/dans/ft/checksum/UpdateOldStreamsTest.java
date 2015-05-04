@@ -23,6 +23,7 @@ public class UpdateOldStreamsTest extends AbstractChecksumTest
     @Test
     public void unversionedUpdate() throws Exception {
         ingestOne(false);
+        
         updateWithChecksum();
     }
 
